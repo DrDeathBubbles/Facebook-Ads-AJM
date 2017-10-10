@@ -4,6 +4,8 @@ import logging
 
 from facebookads import FacebookAdsApi
 from facebookads.adobjects.campaign import Campaign
+from facebookads.adobjects.targetingsearch import TargetingSearch
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -43,5 +45,12 @@ class facebook_ads:
         })
         return campaign        
 
+    def targeting_search(self,ad_interest):
+        params = {
+            'q': ad_interest,
+            'type': 'adinterest'
+        }
+        resp = TargetingSearch.search(params=params)
+        return resp
 
 
