@@ -1,11 +1,12 @@
 
 import os
 import logging
+
 from facebookads import FacebookAdsApi
+from facebookads.adobjects.campaign import Campaign
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 class facebook_ads:
     """
@@ -25,3 +26,22 @@ class facebook_ads:
 
         except KeyError as ke:
             logger.error('You need to set the following environment variable \n {}'.format(ke))
+
+
+
+
+    def create_campaign(self,act_id,campaign_name):
+ 
+        campaign = Campaign(parent_id='act_{}'.format(act_id))
+        campaign.update({
+            Campaign.Field.name:campaign_name ,
+            Campaign.Field.objective: Campaign.Objective.link_clicks,
+        })
+
+        campaign.remote_create(params={
+            'status': Campaign.Status.paused,
+        })
+        return campaign        
+
+
+
