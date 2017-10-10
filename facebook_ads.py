@@ -5,7 +5,7 @@ import logging
 from facebookads import FacebookAdsApi
 from facebookads.adobjects.campaign import Campaign
 from facebookads.adobjects.targetingsearch import TargetingSearch
-
+from facebookads.adobjects.targeting import Targeting
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -53,4 +53,11 @@ class facebook_ads:
         resp = TargetingSearch.search(params=params)
         return resp
 
+    def targeting_parameters(self,interests):
+        targeting = {
+            Targeting.Field.geo_locations: {
+                Targeting.Field.countries: ['US']
+            },
+            Targeting.Field.interests: interests,
 
+        }
