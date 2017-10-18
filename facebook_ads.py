@@ -73,6 +73,11 @@ class facebook_ads:
         }
         return targeting
 
+    def targeting_parameters_custom_audience(self,audience_id):
+        targeting = {
+            Targeting.Field.custom_audiences:[{'id':audience_id}]  
+        }
+        return targeting
 
     def ad_set_creation(self,act_id,ad_set_name,campaign_id,targeting):
         today = datetime.date.today()
@@ -139,10 +144,11 @@ if __name__ == '__main__':
     a = facebook_ads()
     campaign = a.create_campaign(851394958259883,'AJM_TEST_NES') 
     targeting = a.targeting_search('Xbox')
-    targeting_params = a.targeting_parameters(targeting)
+    #targeting_params = a.targeting_parameters(targeting)
+    targeting_params = a.targeting_parameters_custom_audience(6085957639596)
     adset = a.ad_set_creation(851394958259883,'AJM_ADSET_TEST',campaign['id'],targeting_params)
     image = a.create_ad_image(851394958259883,'/Users/aaronmeagher/Desktop/San_Juan.jpg')
     ad_creative = a.create_ad_creative('This is the AdCreativeLinkData.Field.message',
     'websummit.com',image['hash'],294067420659309,851394958259883,'AJM_TEST_CREATIVE'
     )
-    ad = a.schedule_ads(851394958259883,'AJM_TEST',adset['id'],ad_creative['id'])
+    a.schedule_ads(851394958259883,'AJM_TEST',adset['id'],ad_creative['id'])
