@@ -1,7 +1,6 @@
 import pandas as pd
 import os 
 from facebookads import FacebookAdsApi
-#from facebookads.objects import CustomAudience, AdAccount, AdSet
 from facebookads.adobjects.customaudience import CustomAudience
 from facebookads.adobjects.adaccount import AdAccount
 from facebookads.adobjects.adset import AdSet
