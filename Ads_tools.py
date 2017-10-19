@@ -42,6 +42,20 @@ class facebook_ads:
 
 
     def create_campaign(self,act_id,campaign_name):
+        """
+        Creates ad campaign within the advertising account
+        referenced by act_id. The name of the campaign to
+        be genereated is the campaing_name.
+
+        Returns
+
+        <Campaign> {
+        "id": "6090107330196",
+        "name": "AJM_TEST_NES",
+        "objective": "LINK_CLICKS"
+        }
+
+        """
  
         campaign = Campaign(parent_id='act_{}'.format(act_id))
         campaign.update({
@@ -138,6 +152,11 @@ class facebook_ads:
         })
 
         return ad
+
+
+    def create_ad_campaign(self,account_id,campaign_name):
+        campaign = self.create_campaign(account_id, campaign_name)
+        return None 
 
 
 if __name__ == '__main__':
