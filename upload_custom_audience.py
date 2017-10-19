@@ -16,7 +16,8 @@ class Audiences():
     A class for the manipulation of custom audiences for facebook 
     """
 
-    def __init__():
+    def __init__(self,account_id):
+        self.account_id = account_id
         try:
             app_id = os.environ["APPID"]
             app_secret = os.environ['APPSECRET']
@@ -35,12 +36,15 @@ class Audiences():
             logger.error(ve)
 
 
-    def hashing(data):
+    def hashing(self,data):
+        """
+        Hashing data for further digesting lateron 
+        """
         return [hashlib.sha224(k.encode('utf-8')).hexdigest() for k in data]
 
 
 
-    def creating_custom_audience(**kwarg):    
+    def creating_custom_audience(self, **kwarg):    
         try:
             audience = CustomAudience(parent_id=kwarg['account_id'])
             audience[CustomAudience.Field.subtype] = CustomAudience.Subtype.custom
@@ -56,7 +60,7 @@ class Audiences():
         return audience_id
 
 
-    def add_users(users,audience_id = ''):
+    def add_users(self, users, audience_id):
 
         chunks = []
         for i in range(0,len(users),3000):
@@ -68,7 +72,7 @@ class Audiences():
         return
 
 
-    def add_users_phone(users,audience_id = ''):
+    def add_users_phone(self, users, audience_id):
 
         chunks = []
         for i in range(0,len(users),500):
@@ -79,7 +83,7 @@ class Audiences():
             audience.add_users(CustomAudience.Schema.phone_hash, group)
         return
 
-    def creating_look_alike(**kwarg):
+    def creating_look_alike(self,**kwarg):
         try:
             audience = CustomAudience(parent_id=kwarg['account_id'])
             audience[CustomAudience.Field.subtype] = CustomAudience.Subtype.lookalike
@@ -98,26 +102,26 @@ class Audiences():
 
 
 
-    def sharing_audience(**kwarg):
+    def sharing_audience(self, **kwarg):
         audience = CustomAudience(parent_id = kwarg['account_id'])
         audience.share_audience(account_ids)
         return
 
 
-    def custom_audiences_by_account(**kwarg):
+    def custom_audiences_by_account(self, **kwarg):
         audience = CustomAudience(parent_id = kwarg['account_id'])
 
         return audience
 
 
-    def read_custom_audiences_by_account(**kwarg):
+    def read_custom_audiences_by_account(self, **kwarg):
         account = AdAccount(kwarg['account_id'])
         ca = account.get_custom_audiences(fields =[CustomAudience.Field.name])
         return ca
 
 
 
-    def match_custom_audience(**kwargs):
+    def match_custom_audience(self, **kwargs):
         fb_api_init()
         out = []
         words = [x.lower() for x in kwargs['words']]
