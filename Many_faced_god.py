@@ -1,6 +1,8 @@
-#This is a file for the creation of audicence from phonebooks
-#And creating ads which use the photos of these phonebooks
-#To make targeted ads
+"""
+This is a script for the creation of custom audiences from hashed 
+contact lists and the generation of a campaign for which each adset 
+is targeting a single custom audience
+"""
 
 from Audience_tools import *
 from Ads_tools import *
