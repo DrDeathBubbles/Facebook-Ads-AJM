@@ -41,9 +41,10 @@ class facebook_ads:
 
 
 
-    def create_campaign(self,act_id,campaign_name):
+    def create_campaign(self,act_id,campaign_name,spend_cap=10000):
         """
-        Creates ad campaign within the advertising account
+        Creates named campaign within the advertising account with spendcap.a
+
         referenced by act_id. The name of the campaign to
         be genereated is the campaing_name.
 
@@ -57,9 +58,9 @@ class facebook_ads:
 
         """
  
-        campaign = Campaign(parent_id='act_{}'.format(act_id),spend_cap)
+        campaign = Campaign(parent_id='act_{}'.format(act_id))
         campaign.update({
-            Campaign.Field.spend_cap = spend_cap
+            Campaign.Field.spend_cap:spend_cap,
             Campaign.Field.name:campaign_name ,
             Campaign.Field.objective: Campaign.Objective.link_clicks,
         })
@@ -156,11 +157,6 @@ class facebook_ads:
         })
 
         return ad
-
-
-    def create_ad_campaign(self,account_id,campaign_name):
-        campaign = self.create_campaign(account_id, campaign_name)
-        return None 
 
 
 if __name__ == '__main__':
