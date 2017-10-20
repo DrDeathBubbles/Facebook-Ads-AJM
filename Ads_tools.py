@@ -41,7 +41,7 @@ class facebook_ads:
 
 
 
-    def create_campaign(self,act_id,campaign_name,spend_cap=10000):
+    def create_campaign(self,act_id,campaign_name,spend_cap=10000,campaign_objective=Campaign.Objective.link_clicks):
         """
         Creates named campaign within the advertising account with spendcap.a
 
