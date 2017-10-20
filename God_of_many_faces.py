@@ -6,7 +6,7 @@ from Audience_tools import *
 from Ads_tools import *
 import glob
 import csv
-
+import time
 
 path_to_data_files = '/Users/aaronmeagher/Work/testing_ads/'
 
@@ -34,8 +34,18 @@ if __name__ == "__main__":
         audience_map[key] = audience_id['id']
 
 
-    #Sleep
+    #Sleep - needs to sleep for 2 hours
 
+    a = facebook_ads()
+    campaign = a.create_campaign(851394958259883,"DS_AJM_AUDIENCE_TEST")
+    for key in audience_map.keys():
+        targeting_params = a.targeting_parameters_custom_audience(audience_map[key])
+        adset = a.ad_set_creation(851394958259883,'AJM_ADSET_TEST',campaign['id'],targeting_params)
+        image = a.create_ad_image(851394958259883,path_to_data_files + key + '.png')
+        ad_creative = a.create_ad_creative('This is the AdCreativeLinkData.Field.message',
+        'websummit.com',image['hash'],294067420659309,851394958259883,'AJM_TEST_CREATIVE'
+        )
+        a.schedule_ads(851394958259883,'AJM_TEST',adset['id'],ad_creative['id']) 
 
 
 
