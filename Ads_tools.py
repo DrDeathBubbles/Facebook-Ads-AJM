@@ -91,7 +91,10 @@ class facebook_ads:
 
     def targeting_parameters_custom_audience(self,audience_id):
         """
-        Creates the targeting for a specific custom audience
+        Creates the targeting for a specific custom audience.
+
+        Returns
+        {'custom_audiences': [{'id': 6085957639596}]}
         """
         targeting = {
             Targeting.Field.custom_audiences:[{'id':audience_id}]  
@@ -101,6 +104,11 @@ class facebook_ads:
     def ad_set_creation(self,act_id,ad_set_name,campaign_id,targeting):
         """
         Creates an adset associated with a particular campaign with targeting.
+
+        Returns
+        <AdSet> {
+         "id": "6090168487996"
+        }
 
         """
         today = datetime.date.today()
@@ -126,6 +134,19 @@ class facebook_ads:
         return adset
 
     def create_ad_image(self,act_id,image_path):
+        """
+        This creates the ad image. Have to put into it checking
+        
+        Note: Need to ad in checking to see if the image hash already exists
+
+        Returns
+
+        <AdImage> {
+        "hash": "b7e7f2dbb0a6f81dd34537b3048039fc",
+        "url": "https://scontent.xx.fbcdn.net/v/t45.1600-4/22395838_6090162528196_6778197604204281856_n.png?oh=7a10bb464945605d0a66162601383ee4&oe=5A66B82D"
+        }
+        
+        """
         image = AdImage(parent_id = 'act_{}'.format(act_id))
         image[AdImage.Field.filename] = image_path 
         image.remote_create()
