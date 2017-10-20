@@ -37,7 +37,7 @@ if __name__ == "__main__":
     #Sleep - needs to sleep for 2 hours
 
     a = facebook_ads()
-    campaign = a.create_campaign(851394958259883,"DS_AJM_AUDIENCE_TEST_2", spend_cap = 10000)
+    campaign = a.create_campaign(851394958259883,"DS_AJM_AUDIENCE_TEST_3", spend_cap = 10000)
     for key in audience_map.keys():
         targeting_params = a.targeting_parameters_custom_audience(audience_map[key])
         adset = a.ad_set_creation(851394958259883,'AJM_ADSET_TEST',campaign['id'],targeting_params)
