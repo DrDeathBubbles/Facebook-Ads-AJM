@@ -41,7 +41,8 @@ class facebook_ads:
 
 
 
-    def create_campaign(self,act_id,campaign_name,spend_cap=10000,campaign_objective=Campaign.Objective.link_clicks):
+    def create_campaign(self,act_id,campaign_name,spend_cap=10000,
+            campaign_objective=Campaign.Objective.link_clicks):
         """
         Creates named campaign within the advertising account with spendcap.a
 
@@ -60,9 +61,9 @@ class facebook_ads:
  
         campaign = Campaign(parent_id='act_{}'.format(act_id))
         campaign.update({
-            Campaign.Field.spend_cap:spend_cap,
-            Campaign.Field.name:campaign_name ,
-            Campaign.Field.objective: Campaign.Objective.link_clicks,
+            Campaign.Field.spend_cap: spend_cap,
+            Campaign.Field.name: campaign_name ,
+            Campaign.Field.objective: campaign_objective,
         })
 
         campaign.remote_create(params={
@@ -101,7 +102,9 @@ class facebook_ads:
         }
         return targeting
 
-    def ad_set_creation(self,act_id,ad_set_name,campaign_id,targeting):
+    def ad_set_creation(self,act_id,ad_set_name,campaign_id,targeting,
+        optimisation_goal = AdSet.OptimizationGoal.link_clicks,
+        daily_budget = 1000, bid = None):
         """
         Creates an adset associated with a particular campaign with targeting.
 
@@ -122,13 +125,18 @@ class facebook_ads:
             AdSet.Field.campaign_id: campaign_id,
             AdSet.Field.daily_budget: 1000,
             AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
-            AdSet.Field.optimization_goal: AdSet.OptimizationGoal.reach,
-            AdSet.Field.bid_amount: 2,
+            AdSet.Field.optimization_goal :optimisation_goal ,
             AdSet.Field.targeting: targeting,
             AdSet.Field.start_time: start_time,
             AdSet.Field.end_time: end_time,
             AdSet.Field.status: AdSet.Status.active,
         }
+
+        if bid == None:
+            params[AdSet.Field.is_autobid] = True
+        else:
+            params[AdSet.Fields.bid_amount] = bid
+
         adset = ad_account.create_ad_set(params=params)
 
         return adset
