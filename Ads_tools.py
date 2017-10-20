@@ -57,8 +57,9 @@ class facebook_ads:
 
         """
  
-        campaign = Campaign(parent_id='act_{}'.format(act_id))
+        campaign = Campaign(parent_id='act_{}'.format(act_id),spend_cap)
         campaign.update({
+            Campaign.Field.spend_cap = spend_cap
             Campaign.Field.name:campaign_name ,
             Campaign.Field.objective: Campaign.Objective.link_clicks,
         })
@@ -88,6 +89,9 @@ class facebook_ads:
         return targeting
 
     def targeting_parameters_custom_audience(self,audience_id):
+        """
+        Creates the targeting for a specific custom audience
+        """
         targeting = {
             Targeting.Field.custom_audiences:[{'id':audience_id}]  
         }
