@@ -45,8 +45,8 @@ class facebook_ads:
         """
         Creates named campaign within the advertising account with spendcap.a
 
-        referenced by act_id. The name of the campaign to
-        be genereated is the campaing_name.
+        A full list of campaign objectives is available at Campaign.Objective
+
 
         Returns
 
@@ -99,6 +99,10 @@ class facebook_ads:
         return targeting
 
     def ad_set_creation(self,act_id,ad_set_name,campaign_id,targeting):
+        """
+        Creates an adset associated with a particular campaign with targeting.
+
+        """
         today = datetime.date.today()
         start_time = str(today + datetime.timedelta(weeks=1))
         end_time = str(today + datetime.timedelta(weeks=2))
